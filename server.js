@@ -75,7 +75,7 @@ app.use("/purchaseItem", purchaseItems);
 app.use("/getConversationsByUsers", getConversationsByUsers);
 app.use("/friends/:userId", getFriends);
 
-const PORT = 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on PORT ${PORT}`);
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running on PORT ${process.env.PORT}`);
 });
