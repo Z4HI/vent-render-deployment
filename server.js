@@ -39,7 +39,7 @@ app.use(cors());
 dotenv.config();
 const io = new Server(server, {
   cors: {
-    origin:[process.env.EXPO_PUBLIC_IP, 'https://vent-1ed4d.firebaseapp.com'], // Replace with your React Native development server URL
+    origin:[process.env.EXPO_PUBLIC_IP,'https://vent-render-deployment.onrender.com', 'https://vent-1ed4d.firebaseapp.com'], // Replace with your React Native development server URL
     methods: ["GET", "POST"],
   },
 });
@@ -75,7 +75,8 @@ app.use("/purchaseItem", purchaseItems);
 app.use("/getConversationsByUsers", getConversationsByUsers);
 app.use("/friends/:userId", getFriends);
 
+const port = process.env.PORT || 3000;
 
-server.listen(process.env.PORT, () => {
-  console.log(`Server is running on PORT ${process.env.PORT}`);
+server.listen(port, () => {
+  console.log(`Server is running on PORT ${port}`);
 });
