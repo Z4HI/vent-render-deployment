@@ -4,9 +4,12 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   isNewUser: { type: Boolean, default: true }, // Checks if the user is new
+  isNewUser2: { type: Boolean, default: true }, // Checks if the user is new
+  isNewUser3: { type: Boolean, default: true }, // Checks if the user is new
   userName: { type: String, required: true},
   displayName: { type: String, required: true, default: "Anonymous" },
   email: { type: String, required: true, unique: true },
+  categoryInterests: { type: [String], default: [] },
   level: { type: Number, default: 1 },
   badge: { type: String, default: "bronze" },
   totalVentCoinsSpent: { type: Number, default: 0 },
@@ -21,7 +24,7 @@ const UserSchema = new Schema({
   age: { type: String, default: "Prefer not to say" },
   gender: {
     type: String,
-    enum: ["Male", "Female", "Other", "Prefer not to say"],
+    enum: ["Male", "Female", "Non-binary", "Transgender", "Other", "Prefer not to say"],
     default: "Prefer not to say",
   },
   previousMessages: [
@@ -37,14 +40,14 @@ const UserSchema = new Schema({
   Trees: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tree" }], // User's current tree level
 
   // Vent-related settings
-  ventLimit: { type: Number, default: 15 }, // Number of vents user can send per day
-  ventReceivedLimit: { type: Number, default: 15 }, // Number of vents user can receive per day
+  ventLimit: { type: Number, default: 1 }, // Number of vents user can send per day
+  ventReceivedLimit: { type: Number, default: 3 }, // Number of vents user can receive per day
   isVentPlus: { type: Boolean, default: false }, // If user has Vent+
   ventPlusExpiresAt: { type: Date }, // Tracks when Vent+ subscription expires
   loginStreak: { type: Number, default: 0 }, // Tracks the user's login streak
   helpedCount: { type: Number, default: 0 }, // Tracks how many people the user has helped
   darkMode: { type: Boolean, default: false }, // Tracks if the user has dark mode enabled
-
+  categories: { type: [String], default: [] }, // Tracks the user's categories
   // Notification Settings
   expoPushToken: { type: String }, // Stores the user's FCM token
   notificationSettings: {

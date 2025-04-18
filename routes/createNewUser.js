@@ -36,18 +36,21 @@ const createNewUser = async (req, res) => {
     });
     const savedTree = await newTree.save();
     
-    const totalVentCoins = 1000;
+    const totalVentCoins = 0;
     const newUser = new User({
       userName: username,
       email: email,
       expoPushToken: expoPushToken, // Store the token when creating the new user
       Trees: [savedTree._id],
-      VentCoins: 10000,
+      VentCoins: 100,
       isNewUser: false,
       profileImageCollection: ["blank.png", "female.jpg", ],
       profileImage: "blank.png",
       totalVentCoinsSpent: totalVentCoins,
       badge: badge(totalVentCoins),
+      isVentPlus: false,
+      ventLimit: 1,
+      ventReceivedLimit: 1,
     });
 
     const savedUser = await newUser.save();
