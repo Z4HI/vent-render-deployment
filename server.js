@@ -32,6 +32,7 @@ import getConversationsByUsers from "./routes/getConversationsByUsers.js";
 import checkVent from "./routes/checkVentsCronJob.js";
 import getFriends from "./routes/getFriends.js";
 import purchaseVentPlus from "./routes/purchaseVentPlus.js";
+import updateUserByUsername from "./updateMongoDBSchema.js";
 const app = express();
 const server = http.createServer(app);
 app.use(express.json());
@@ -76,6 +77,11 @@ app.use("/getConversationsByUsers", getConversationsByUsers);
 app.use("/friends/:userId", getFriends);
 app.use("/purchaseVentPlus", purchaseVentPlus);
 const port = process.env.PORT || 3000;
+
+
+updateUserByUsername("bsksnd", {
+  ventsSentToday: 10
+});
 
 server.listen(port, () => {
   console.log(`Server is running on PORT ${port}`);

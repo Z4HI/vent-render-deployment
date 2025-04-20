@@ -1,9 +1,13 @@
 import Conversation from '../models/ConversationSchema.js';
 import Message from '../models/messageSchema.js';
 import User from '../models/userSchema.js';
+import { connectToDatabase } from '../db/mongodb.js';
 
 const checkVents = async () => {
   try {
+    // Ensure database connection
+    await connectToDatabase();
+
     // Find all conversations that have expired
     const expiredConversations = await Conversation.find({
       expiresAt: { $lte: new Date() }

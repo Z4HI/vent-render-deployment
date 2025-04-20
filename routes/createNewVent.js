@@ -38,7 +38,7 @@ const createNewVent = async (req, res) => {
     const now = new Date();
     //now.setMinutes(0,0,0);
     const createdAt = now
-    const expiresAt = new Date(createdAt.getTime() + 60 * 60 * 1000);
+    const expiresAt = new Date(createdAt.getTime() + 24 * 60 * 60 * 1000);
     const conversation = new Conversation({
       title,
       senderId,
