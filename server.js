@@ -79,9 +79,9 @@ app.use("/purchaseVentPlus", purchaseVentPlus);
 const port = process.env.PORT || 3000;
 
 
-updateUserByUsername("bsksnd", {
-  ventsSentToday: 10
-});
+//updateUserByUsername("bsksnd", {
+//  ventsSentToday: 10
+//});
 
 server.listen(port, () => {
   console.log(`Server is running on PORT ${port}`);
