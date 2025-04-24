@@ -34,6 +34,7 @@ import getFriends from "./routes/getFriends.js";
 import purchaseVentPlus from "./routes/purchaseVentPlus.js";
 import updateUserByUsername from "./updateMongoDBSchema.js";
 import getConversation from "./routes/getConversation.js";
+import getDailyMessage from "./routes/getDailyMessage.js";
 const app = express();
 const server = http.createServer(app);
 app.use(express.json());
@@ -78,6 +79,7 @@ app.use("/getConversationsByUsers", getConversationsByUsers);
 app.use("/friends/:userId", getFriends);
 app.use("/purchaseVentPlus", purchaseVentPlus);
 app.use("/getConversation", getConversation);
+app.use("/getDailyMessage", getDailyMessage);
 const port = process.env.PORT || 3000;
 
 
