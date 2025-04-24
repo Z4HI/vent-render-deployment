@@ -33,6 +33,7 @@ import checkVent from "./routes/checkVentsCronJob.js";
 import getFriends from "./routes/getFriends.js";
 import purchaseVentPlus from "./routes/purchaseVentPlus.js";
 import updateUserByUsername from "./updateMongoDBSchema.js";
+import getConversation from "./routes/getConversation.js";
 const app = express();
 const server = http.createServer(app);
 app.use(express.json());
@@ -76,6 +77,7 @@ app.use("/purchaseItem", purchaseItems);
 app.use("/getConversationsByUsers", getConversationsByUsers);
 app.use("/friends/:userId", getFriends);
 app.use("/purchaseVentPlus", purchaseVentPlus);
+app.use("/getConversation", getConversation);
 const port = process.env.PORT || 3000;
 
 

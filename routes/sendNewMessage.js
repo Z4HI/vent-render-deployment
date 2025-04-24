@@ -10,14 +10,15 @@ const sendNewMessage = async (req, res) => {
 
   try {
     let conversation = await Conversation.findById(conversationID); // Find the conversation
-    let responded = false;
-    if (senderId !== conversation.senderId) {
-      responded = true;
+    if (senderId.toString() !== conversation.senderId.toString()) {
+      conversation.responded = true;
     }
     const recipientId =
-      conversation.senderId === senderId
+      conversation.senderId.toString() === senderId.toString()
         ? conversation.receiverId
         : conversation.senderId;
+
+
     const newMessage = new Message({
       senderId: senderId,
       senderName: senderName,
@@ -28,15 +29,18 @@ const sendNewMessage = async (req, res) => {
       receiverId: recipientId,
       senderProfileImage: senderProfileImage,
     });
+
+    const recipient = await User.findById(recipientId);
+  
+    const recipientExpoPushToken = recipient.expoPushToken;
    
     await newMessage.save();
     conversation.read = false;
     conversation.lastMessage = newMessage;
     conversation.messages.push(newMessage);
-    conversation.responded = responded;
     await conversation.save();
 
-    res.status(200).json(newMessage); // Respond with the new message
+    res.status(200).json({ newMessage, expoPushToken: recipientExpoPushToken }); // Respond with the new message
   } catch (error) {
     console.error("Error sending message:", error);
     return res

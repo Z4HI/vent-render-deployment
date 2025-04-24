@@ -9,7 +9,7 @@ const expo = new Expo();
 // Endpoint to send push notifications
 const sendPushNotifications = async (req, res) => {
   
-  const { expoPushToken, title } = req.body;
+  const { expoPushToken, title, body } = req.body;
 
   if (!Expo.isExpoPushToken(expoPushToken)) {
     return res.status(400).json({ error: "Invalid Expo Push Token" });
@@ -19,9 +19,12 @@ const sendPushNotifications = async (req, res) => {
     {
       to: expoPushToken,
       sound: "default",
-      title: "New Vent!",
-      body: title,
-      data: { screen: "Inbox" },
+      title: title,
+      body: body,
+      data: { 
+        screen: "Inbox",
+        conversationId: req.body.conversationId 
+      },
     },
   ];
 
