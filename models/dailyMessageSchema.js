@@ -6,14 +6,19 @@ const DailyMessageSchema = new Schema({
     date: { 
         type: Date, 
         required: true,
-        default: new Date().setHours(0, 0, 0, 0) // Set to start of current day
+        default: new Date().setHours(0, 0, 0, 0), // Set to start of current day
+        
     },
     quote: {
         text: { type: String, required: true },
-        author: { type: String }
+        author: { type: String },
+        likes: { type: Number, default: 0 },
+        liked: { type: Boolean, default: false }
     },
     affirmation: { 
-        text: { type: String, required: true }
+        text: { type: String, required: true },
+        likes: { type: Number, default: 0 },
+        liked: { type: Boolean, default: false }
     }
 });
 

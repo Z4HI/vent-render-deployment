@@ -1,11 +1,15 @@
 import User from "./models/userSchema.js";
-import { connectToDatabase, DisconnectToDatabase } from "./db/mongodb.js";
+import { connectToDatabase } from "./db/mongodb.js";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 dotenv.config();
 
 const updateUserByUsername = async (username, updates) => {
   try {
-    await connectToDatabase();
+    // Check if we're already connected
+    if (mongoose.connection.readyState !== 1) {
+      await connectToDatabase();
+    }
 
     const result = await User.updateOne(
       { userName: username },
@@ -21,8 +25,6 @@ const updateUserByUsername = async (username, updates) => {
     }
   } catch (error) {
     console.error("Error updating user:", error);
-  } finally {
-    await DisconnectToDatabase();
   }
 };
 

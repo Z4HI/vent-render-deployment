@@ -31,10 +31,13 @@ import purchaseItems from "./routes/purchaseItem.js";
 import getConversationsByUsers from "./routes/getConversationsByUsers.js";
 import checkVent from "./routes/checkVentsCronJob.js";
 import getFriends from "./routes/getFriends.js";
-import purchaseVentPlus from "./routes/purchaseVentPlus.js";
 import updateUserByUsername from "./updateMongoDBSchema.js";
 import getConversation from "./routes/getConversation.js";
-import getDailyMessage from "./routes/getDailyMessage.js";
+import likeDailyAffirmation from "./routes/likeDailyAffirmation.js";
+import likeDailyQuote from "./routes/likeDailyQuote.js";
+import getQOD from "./routes/getQOD.js";
+import getQODandAffirmation from "./routes/getQODandAffirmation.js";
+import resetDailyLikes from "./routes/resetDailyLikes.js";
 const app = express();
 const server = http.createServer(app);
 app.use(express.json());
@@ -77,16 +80,29 @@ app.use("/searchUsers/:username", searchUsers);
 app.use("/purchaseItem", purchaseItems);
 app.use("/getConversationsByUsers", getConversationsByUsers);
 app.use("/friends/:userId", getFriends);
-app.use("/purchaseVentPlus", purchaseVentPlus);
 app.use("/getConversation", getConversation);
-app.use("/getDailyMessage", getDailyMessage);
+app.use("/getQOD", getQOD);
+app.use("/likeDailyAffirmation", likeDailyAffirmation);
+app.use("/likeDailyQuote", likeDailyQuote);
+app.use("/getQODandAffirmation", getQODandAffirmation);
+app.use("/resetDailyLikes", resetDailyLikes);
 const port = process.env.PORT || 3000;
 
-
-//updateUserByUsername("bsksnd", {
-//  ventsSentToday: 10
-//});
-
-server.listen(port, () => {
-  console.log(`Server is running on PORT ${port}`);
+// Ensure database connection is established before starting server
+connectToDatabase().then(() => {
+  server.listen(port, async () => {
+    console.log(`Server is running on PORT ${port}`);
+    try {
+      await updateUserByUsername("hello", {
+        VentCoins: 10000
+      });
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  });
+}).catch(error => {
+  console.error("Failed to connect to database:", error);
+  process.exit(1);
 });
+
+

@@ -11,10 +11,12 @@ const getQOD = async () => {
             date: new Date().setHours(0, 0, 0, 0),
             quote: {
                 text: qod.data[0].q,
-                author: qod.data[0].a
+                author: qod.data[0].a,
+                likes: 0,
             },
             affirmation: {
-                text: affirmation.data.affirmation
+                text: affirmation.data.affirmation,
+                likes: 0,
             }
         });
 
@@ -23,7 +25,7 @@ const getQOD = async () => {
         
         return {
             affirmation: affirmation.data,
-            qod: qod.data
+            quote: qod.data
         }
 
     } catch (error) {
@@ -31,5 +33,6 @@ const getQOD = async () => {
         throw error;
     }
 }
+
 
 export default getQOD;

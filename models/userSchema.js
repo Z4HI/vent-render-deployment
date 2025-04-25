@@ -50,6 +50,8 @@ const UserSchema = new Schema({
   categories: { type: [String], default: [] }, // Tracks the user's categories
   // Notification Settings
   expoPushToken: { type: String }, // Stores the user's FCM token
+  likedDailyAffirmation: { type: Boolean, default: false },
+  likedDailyQuote: { type: Boolean, default: false },
   notificationSettings: {
     ventReplied: { type: Boolean, default: true }, // Alert when a vent is replied to
     ventReceived: { type: Boolean, default: true }, // Notification when a vent enters inbox
