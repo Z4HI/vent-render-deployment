@@ -2,6 +2,7 @@ import axios from 'axios';
 import DailyMessage from '../models/dailyMessageSchema.js';
 
 const getQOD = async () => {
+    console.log('getting qod');
     try {
         const affirmation = await axios.get('https://www.affirmations.dev/')
         const qod = await axios.get('https://zenquotes.io/api/today')
